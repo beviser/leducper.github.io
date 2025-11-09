@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDP TOOLS - Bot Hỗ Trợ Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background với hiệu ứng ánh sáng -->
+    <div class="background">
+        <div class="light-effect"></div>
+    </div>
+
+    <!-- Container chính -->
+    <div class="container">
+        <!-- Phần đăng nhập/đăng ký -->
+        <div id="authSection" class="auth-section">
+            <!-- Login Form -->
+            <div id="loginForm" class="glass-card login-card">
+                <h1>LDP TOOLS</h1>
+                <h2>Đăng Nhập</h2>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Tên tài khoản</label>
+                        <input type="text" id="loginUsername" placeholder="Nhập tên tài khoản" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Đăng nhập ngay</button>
+                </form>
+                <p class="auth-switch">
+                    Bạn chưa có tài khoản? 
+                    <a href="#" onclick="switchToRegister(event)">Bấm vào đây để tạo tài khoản</a>
+                </p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="registerForm" class="glass-card register-card" style="display: none;">
+                <h1>LDP TOOLS</h1>
+                <h2>Đăng Ký</h2>
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label>Tên tài khoản</label>
+                        <input type="text" id="registerUsername" placeholder="Nhập tên tài khoản" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu</label>
+                        <input type="password" id="registerPassword" placeholder="Nhập mật khẩu" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Xác nhận mật khẩu</label>
+                        <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Tạo tài khoản ngay</button>
+                </form>
+                <p class="auth-switch">
+                    Đã có tài khoản? 
+                    <a href="#" onclick="switchToLogin(event)">Bấm vào đây để đăng nhập</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Phần Dashboard (ẩn ban đầu) -->
+        <div id="dashboardSection" class="dashboard-section" style="display: none;">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <nav class="sidebar-nav">
+                    <a href="#" onclick="showHome(event)" class="nav-item active">🏠 Trang chủ</a>
+                    <a href="#" onclick="showAccount(event)" class="nav-item">👤 Kiểm tra tài khoản</a>
+                    <a href="#" onclick="showDeposit(event)" class="nav-item">��� Nạp tiền</a>
+                    <a href="#" onclick="showHistory(event)" class="nav-item">📜 Lịch sử mua</a>
+                    
+                    <!-- User Menu -->
+                    <div id="userMenu" style="display: none;">
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 10px 0; padding-top: 10px;">
+                            <a href="#" onclick="showGetFiles()" class="nav-item">📁 Lấy File</a>
+                            <a href="#" onclick="showSearchFile()" class="nav-item">🔍 Tìm Kiếm File</a>
+                            <a href="#" onclick="showServersUser()" class="nav-item">🖥️ Server</a>
+                            <a href="#" onclick="showOnlineServer()" class="nav-item">📡 Server Online</a>
+                            <a href="#" onclick="showShadowrocket()" class="nav-item">🚀 Shadowrocket</a>
+                            <a href="#" onclick="showBeMember()" class="nav-item">⭐ Trở Thành Member</a>
+                            <a href="#" onclick="showBuyFiles()" class="nav-item">💳 Mua File</a>
+                            <a href="#" onclick="showPrice()" class="nav-item">💰 Bảng Giá</a>
+                            <a href="#" onclick="showLink()" class="nav-item">🔗 Link Hỗ Trợ</a>
+                            <a href="#" onclick="showHelpCenter()" class="nav-item">❓ Help Center</a>
+                            <a href="#" onclick="checkDevice()" class="nav-item">📱 Kiểm Tra Thiết Bị</a>
+                        </div>
+                    </div>
+
+                    <!-- Member Menu -->
+                    <div id="memberMenu" style="display: none;">
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 10px 0; padding-top: 10px;">
+                            <a href="#" onclick="showGetFiles()" class="nav-item">📁 Lấy File</a>
+                            <a href="#" onclick="showSearchFile()" class="nav-item">🔍 Tìm Kiếm File</a>
+                            <a href="#" onclick="showServersUser()" class="nav-item">🖥️ Server</a>
+                            <a href="#" onclick="showOnlineServer()" class="nav-item">📡 Server Online</a>
+                            <a href="#" onclick="showCreateCert()" class="nav-item">📄 Tạo Chứng Chỉ</a>
+                            <a href="#" onclick="showShadowrocket()" class="nav-item">🚀 Shadowrocket</a>
+                            <a href="#" onclick="showBuyFiles()" class="nav-item">💳 Mua File</a>
+                            <a href="#" onclick="showPrice()" class="nav-item">💰 Bảng Giá</a>
+                            <a href="#" onclick="showLink()" class="nav-item">🔗 Link Hỗ Trợ</a>
+                            <a href="#" onclick="showHelpCenter()" class="nav-item">❓ Help Center</a>
+                            <a href="#" onclick="checkDevice()" class="nav-item">📱 Kiểm Tra Thiết Bị</a>
+                        </div>
+                    </div>
+
+                    <!-- Admin Menu -->
+                    <div id="adminMenu" style="display: none;">
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 10px 0; padding-top: 10px;">
+                            <a href="#" onclick="showAdminControl(event)" class="nav-item admin">⚙️ Control Panel</a>
+                            <a href="#" onclick="createHelpKey()" class="nav-item admin">🔑 Tạo Help Key</a>
+                            <a href="#" onclick="checkHelpKey()" class="nav-item admin">📋 Kiểm Tra Help Key</a>
+                        </div>
+                    </div>
+
+                    <a href="#" onclick="handleLogout(event)" class="nav-item logout">🚪 Đăng xuất</a>
+                </nav>
+            </div>
+
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <h1 class="logo" onclick="showHome()">LDP TOOLS</h1>
+                </div>
+                <div class="header-right">
+                    <span class="username" id="headerUsername"></span>
+                    <div class="balance-box">
+                        <span id="headerBalance">0đ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Home Page -->
+                <div id="homePage" class="page active">
+                    <div class="welcome-card glass-card">
+                        <h2>Chào mừng đến với LDP TOOLS</h2>
+                        <p>Bot hỗ trợ share file, tăng nhạy, hỗ trợ kéo tâm game Free Fire</p>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <h3>📁 Share File</h3>
+                                <p>Chia sẻ file chứng chỉ, config game</p>
+                            </div>
+                            <div class="feature-item">
+                                <h3>🎯 Tăng Nhạy</h3>
+                                <p>Công cụ tối ưu hóa độ nhạy game</p>
+                            </div>
+                            <div class="feature-item">
+                                <h3>🔥 Free Fire</h3>
+                                <p>Hỗ trợ kéo tâm game Free Fire</p>
+                            </div>
+                            <div class="feature-item">
+                                <h3>🛡️ Bảo Mật</h3>
+                                <p>Chứng chỉ SSL/TLS an toàn</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Page -->
+                <div id="accountPage" class="page" style="display: none;">
+                    <div class="glass-card">
+                        <h2>Thông Tin Tài Khoản</h2>
+                        <div class="account-info">
+                            <div class="info-row">
+                                <span class="label">Tên tài khoản:</span>
+                                <span class="value" id="accountUsername"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Loại tài khoản:</span>
+                                <span class="value" id="accountType"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Số dư:</span>
+                                <span class="value" id="accountBalance"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Ngày tạo:</span>
+                                <span class="value" id="accountCreated"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deposit Page -->
+                <div id="depositPage" class="page" style="display: none;">
+                    <div class="glass-card">
+                        <h2>Nạp Tiền</h2>
+                        <p>Liên hệ admin để nạp tiền vào tài khoản của bạn</p>
+                        <div class="deposit-info">
+                            <p>Admin sẽ cộng tiền vào tài khoản sau khi xác nhận</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Page -->
+                <div id="historyPage" class="page" style="display: none;">
+                    <div class="glass-card">
+                        <h2>Lịch Sử Mua</h2>
+                        <div id="historyList" class="history-list">
+                            <p>Chưa có lịch sử mua</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Control Panel -->
+                <div id="adminPage" class="page" style="display: none;">
+                    <div class="admin-panel">
+                        <h2>Control Panel - Quản Lý Website</h2>
+                        
+                        <div class="admin-tabs">
+                            <button class="tab-btn active" onclick="switchAdminTab('users')">Quản Lý Người Dùng</button>
+                            <button class="tab-btn" onclick="switchAdminTab('files')">Quản Lý File</button>
+                            <button class="tab-btn" onclick="switchAdminTab('servers')">Quản Lý Server</button>
+                            <button class="tab-btn" onclick="switchAdminTab('keys')">Quản Lý Key</button>
+                            <button class="tab-btn" onclick="switchAdminTab('money')">Quản Lý Tiền</button>
+                        </div>
+
+                        <!-- Users Tab -->
+                        <div id="usersTab" class="admin-tab active glass-card">
+                            <h3>Danh Sách Người Dùng</h3>
+                            <div id="usersList" class="users-list">
+                                <p>Đang tải...</p>
+                            </div>
+                        </div>
+
+                        <!-- Files Tab -->
+                        <div id="filesTab" class="admin-tab glass-card" style="display: none;">
+                            <h3>Quản Lý File</h3>
+                            <div class="file-management">
+                                <div class="form-group">
+                                    <label>Số file:</label>
+                                    <input type="number" id="fileNumber" placeholder="Nhập số file">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tên file:</label>
+                                    <input type="text" id="fileName" placeholder="Nhập tên file">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nội dung/Link:</label>
+                                    <textarea id="fileContent" placeholder="Nhập link hoặc nội dung file"></textarea>
+                                </div>
+                                <button class="btn-primary" onclick="uploadFile()">Upload File</button>
+                            </div>
+                            <div id="filesList" class="files-list" style="margin-top: 20px;">
+                                <h4>Danh Sách File</h4>
+                                <div id="filesListContent">
+                                    <p>Chưa có file nào</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Servers Tab -->
+                        <div id="serversTab" class="admin-tab glass-card" style="display: none;">
+                            <h3>Quản Lý Server</h3>
+                            <div class="server-management">
+                                <div class="form-group">
+                                    <label>Server IP/Domain:</label>
+                                    <input type="text" id="serverInput" placeholder="Nhập server (vd: 103.223.532)">
+                                </div>
+                                <button class="btn-primary" onclick="addServer()">Thêm Server</button>
+                            </div>
+                            <div id="serversList" class="servers-list" style="margin-top: 20px;">
+                                <h4>Danh Sách Server</h4>
+                                <div id="serversListContent">
+                                    <p>Chưa có server nào</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Keys Tab -->
+                        <div id="keysTab" class="admin-tab glass-card" style="display: none;">
+                            <h3>Quản Lý Key Member</h3>
+                            <div class="key-management">
+                                <div class="form-group">
+                                    <label>Thời hạn key:</label>
+                                    <select id="keyDuration">
+                                        <option value="1h">1 giờ</option>
+                                        <option value="2h">2 giờ</option>
+                                        <option value="1day">1 ngày</option>
+                                        <option value="2day">2 ngày</option>
+                                        <option value="1week">1 tuần</option>
+                                        <option value="2week">2 tuần</option>
+                                        <option value="1month">1 tháng</option>
+                                        <option value="2month">2 tháng</option>
+                                        <option value="unlimited">Không giới hạn</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telegram ID (@username):</label>
+                                    <input type="text" id="telegramId" placeholder="@username">
+                                </div>
+                                <button class="btn-primary" onclick="createMemberKey()">Tạo Key</button>
+                            </div>
+                            <div id="keysList" class="keys-list" style="margin-top: 20px;">
+                                <h4>Danh Sách Key</h4>
+                                <div id="keysListContent">
+                                    <p>Chưa có key nào</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Money Tab -->
+                        <div id="moneyTab" class="admin-tab glass-card" style="display: none;">
+                            <h3>Quản Lý Tiền</h3>
+                            <div class="money-management">
+                                <div class="info-row">
+                                    <span class="label">Số dư Admin:</span>
+                                    <span class="value" id="adminBalance">100,000,000đ</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cộng tiền cho tài khoản:</label>
+                                    <input type="text" id="userToAdd" placeholder="Nhập tên tài khoản">
+                                </div>
+                                <div class="form-group">
+                                    <label>Số tiền:</label>
+                                    <input type="number" id="amountToAdd" placeholder="Nhập số tiền">
+                                </div>
+                                <button class="btn-primary" onclick="addMoneyToUser()">Cộng Tiền</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
